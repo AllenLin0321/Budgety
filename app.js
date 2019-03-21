@@ -217,6 +217,12 @@ var UIController = (function (){
 
     };
 
+    var nodeListForEach = function(list, callback) {
+        for (var i = 0; i< list.length; i++){
+            callback(list[i], i);
+        }
+    };
+
     return {
         getinput: function () { 
 
@@ -299,12 +305,6 @@ var UIController = (function (){
 
             var fields = document.querySelectorAll(DOMstrings.expensesPerceLabel);
             
-            var nodeListForEach = function(list, callback) {
-                for (var i = 0; i< list.length; i++){
-                    callback(list[i], i);
-                }
-            }
-
             // Put fileds and callback function to the top function ↑
             nodeListForEach(fields, function(current, index){
 
@@ -327,6 +327,19 @@ var UIController = (function (){
             month = now.getMonth();
 
             document.querySelector(DOMstrings.dateLabel).textContent = mL[month] + ' ' + year;
+        },
+
+        changedType: function () {
+
+            var fields = document.querySelectorAll(
+                DOMstrings.inputType + ','+
+                DOMstrings.inputDescription + ',' +
+                DOMstrings.inputValue);
+
+            nodeListForEach(fields, function(cur){
+                cur.classList.toggle('red-focus');
+            });
+
         },
 
         getDOMstrings: function () {
@@ -355,6 +368,8 @@ var  controller = (function(budgeCtrl, UICtrl) {
         });
 
         document.querySelector(DOM.container).addEventListener('click', ctrlDeleteItem);
+
+        document.querySelector(DOM.inputType).addEventListener('change', UICtrl.changedType);
     };
 
     
