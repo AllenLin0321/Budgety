@@ -200,7 +200,6 @@ var UIController = (function (){
         */
 
         var numSplit, int, dec;
-        console.log(num);
         num = Math.abs(num);
         num = num.toFixed(2);
 
